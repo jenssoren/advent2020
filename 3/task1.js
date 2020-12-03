@@ -36,8 +36,6 @@ function handle(data)
       col =  col - data[i].length;
     }
 
-    console.log(i, col);
-
     if (data[i][col] == "#") {
       hitTrees++;
     }
