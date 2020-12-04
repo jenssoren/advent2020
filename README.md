@@ -2,6 +2,7 @@
 
 ### How to run
 run `node main.js DAY TASK INPUT`
+
 `main.js` is a small runner using the following format:
 |arg|description|
 |---|-----------|
@@ -10,6 +11,7 @@ run `node main.js DAY TASK INPUT`
 |**INPUT**|A .txt with input for the task (use the path relative to `main.js`)|
 
 **ex**. `node.js 4 1 4/input.txt` to run task 1 for day 4 with the input defined in `4/input.txt`
+
 **ex.** `node.js 6 2 6/example.txt` to run task 2 for day 6 with the input defined in `6/example.txt`
 
 
