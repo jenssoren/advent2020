@@ -1,10 +1,6 @@
-const { Base } = require('../lib/base.js')
+const Task1 = require('./task1.js');
 
-class Task extends Base {
-  pass_input(data) {
-    return data.split("\n").map(row => row.split(""));
-  }
-
+class Task extends Task1.Task {
   handle(data) {
     let r1 = this.countHitTrees(data, 1, 1);
     let r3 = this.countHitTrees(data, 3, 1);

@@ -23,14 +23,12 @@ class Task extends Base {
   }
 
   handle(data) {
-    const validPassports = data.filter(passport => 
-      this.validate_keys(Object.getOwnPropertyNames(passport)
-    ))
-
+    const validPassports = data.filter(passport => this.validate(passport))
     console.log("Valid passports: ", validPassports.length);
   }
   
-  validate_keys(keys) {
+  validate(data) {
+    const keys = Object.getOwnPropertyNames(data);
     const required_keys = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"];
     return required_keys.every(val => keys.indexOf(val) !== -1);
   }

@@ -1,10 +1,6 @@
-const { Base } = require('../lib/base.js')
+const Task1 = require('./task1.js');
 
-class Task extends Base {
-  pass_input(data) {
-    return data.split("\n").map(row => parseInt(row));
-  }
-
+class Task extends Task1.Task {
   handle(data) {
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < data.length; j++) {

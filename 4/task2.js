@@ -1,32 +1,6 @@
-const { Base } = require('../lib/base.js')
+const Task1 = require('./task1.js');
 
-class Task extends Base {
-  pass_input(data) {
-    let splited = data.split("\n");
-    let counter = 0;
-    let formatedData = [{}];
-    
-    splited.forEach(row => {
-      if (row == "") {
-        formatedData.push({});
-        counter++;
-      } else {
-        row.split(" ").forEach(param => {
-          let key, value;
-          [key, value] = param.split(":", 2);
-          formatedData[counter][key] = value;
-        })
-      }
-    })
-
-    return formatedData;
-  }
-
-  handle(data) {
-    const validPassports = data.filter(passport => this.validate(passport));
-    console.log("Valid passports: ", validPassports.length);
-  }
-  
+class Task extends Task1.Task {
   // NOTE TO SELF: THIS IS A TERRIBLE WAY TO VALIDATE!
   // This method returns fails if the validator matches a value OUTSIDE the valid values OR true if no validator fails.
   // This should be reversed so it only returns true if all validators have values INSIDE the valid values.
