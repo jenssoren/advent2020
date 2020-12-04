@@ -44,7 +44,6 @@ function pass_input(data)
 function handle(data)
 {
   let validPassports = 0;
-  console.log(data);
   for (let i = 0; i < data.length; i++) {
     if (validate_keys(Object.getOwnPropertyNames(data[i]))) {
       validPassports++;
