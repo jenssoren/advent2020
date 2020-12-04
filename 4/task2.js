@@ -72,7 +72,6 @@ function validate_keys(data) {
     return false;
   }
 
-  // hgt
   let hgt_unit = data.hgt.substr(data.hgt.length - 2);
   let height = parseInt(data.hgt);
 
@@ -96,8 +95,6 @@ function validate_keys(data) {
     }
   }
 
-  // console.log(data.hgt);
-
   let hclReg = /#[0-9a-f]{6}$/g;
   if (!hclReg.test(data.hcl)) {
     return false;
@@ -110,8 +107,6 @@ function validate_keys(data) {
   if (data.pid.toString().length != 9) {
     return false;
   }
-
-  //console.log(data);
 
   return true;
 }
