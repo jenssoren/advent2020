@@ -2,16 +2,14 @@ const { Base } = require('../lib/base.js')
 
 class Task extends Base {
   handle(data) {
-    console.log(data);
     data = data.map(input => {
       let row = this.find_middle(input.substring(0, 7).split(""), 128);
       let col = this.find_middle(input.substring(7, 10).split(""), 8);
-      console.log("ROW: ", row, " COLUMN: ", col);
 
       return row * 8 + col;
     });
 
-    console.log(Math.max(...data));
+    console.log("Heights Seat ID is: ", Math.max(...data));
   }
 
   find_middle(data, counter) {
