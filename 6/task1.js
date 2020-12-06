@@ -18,8 +18,7 @@ class Task extends Base {
   
   handle(data) {
     const questions = data.map(group => this.find_answers(group));
-    let questions_sum = 0;
-    questions.forEach(question => questions_sum = questions_sum + question.length);
+    const questions_sum = questions.reduce((acc, cur) => acc + cur.length, 0);
     console.log("Sum of answers: ", questions_sum);
   }
 
