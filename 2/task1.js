@@ -1,7 +1,7 @@
 const { Base } = require('../lib/base.js')
 
 class Task extends Base {
-  pass_input(data) {
+  parse_input(data) {
     return data.split("\n").map(row => {
       let tmp, min, max, char, password;
       const matches = [...row.matchAll(/(\d*)-(\d*) (.): (.+)/g)][0];

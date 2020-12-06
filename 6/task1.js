@@ -1,7 +1,7 @@
 const { Base } = require('../lib/base.js')
 
 class Task extends Base {
-  pass_input(data) {
+  parse_input(data) {
     let groups = [[]],
         counter = 0;
     data.split("\n").forEach(row => {

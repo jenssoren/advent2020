@@ -1,7 +1,7 @@
 const { Base } = require('../lib/base.js')
 
 class Task extends Base {
-  pass_input(data) {
+  parse_input(data) {
     return data.split("\n").map(row => parseInt(row));
   }
 
