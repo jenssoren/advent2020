@@ -2,29 +2,24 @@ const { Base } = require('../lib/base.js')
 
 class Task extends Base {
   parse_input(data) {
-    data = data.split("\n").map(row => {
-      let color, content;
-      const matches = [...row.matchAll(/^(\w+ \w+) (\w+ \w+) (.+)/g)][0];
-      color = matches[1];
-      content = matches[3].split(", ").map(bag => {
-        if (bag == "no other bags.") {
-          return null;
-        } else {
-          let parts = bag.split(" ");
-          return {
-            amount: parseInt(parts[0]),
-            color: parts[1] + " " + parts[2]
-          };
+    return data
+      .split("\n")
+      .map(row => {
+        let content;
+        const matches = [...row.matchAll(/^(\w+ \w+) (\w+ \w+) (.+)/g)][0];
+        if (matches[3] != "no other bags.") {
+          content = matches[3].split(", ").map(bag => {
+            const parts = bag.split(" ");
+              return {
+                amount: parseInt(parts[0]),
+                color: parts[1] + " " + parts[2]
+              };
+          });
         }
-      });
-      if (content[0] == null) {
-        content = null;
-      }
 
-      return {color, content};
-    });
-
-    return data.filter(bag => bag.content != null);
+        return {color: matches[1], content: content ? content : null };
+      })
+      .filter(bag => bag.content != null);
   }
   
   handle(data) {
