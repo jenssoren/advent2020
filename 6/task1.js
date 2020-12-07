@@ -1,40 +1,40 @@
 const { Base } = require('../lib/base.js')
 
 class Task extends Base {
-  parse_input(data) {
-    let groups = [[]],
-        counter = 0;
-    data.split("\n").forEach(row => {
-      if (row == "") {
-        groups.push([]);
+  parseInput (data) {
+    const groups = [[]]
+    let counter = 0
+    data.split('\n').forEach(row => {
+      if (row === '') {
+        groups.push([])
         counter++
       } else {
-        groups[counter].push(row);
+        groups[counter].push(row)
       }
-    });
+    })
 
-    return groups;
-  }
-  
-  handle(data) {
-    const questions = data.map(group => this.find_answers(group));
-    const questions_sum = questions.reduce((acc, cur) => acc + cur.length, 0);
-    console.log("Sum of answers: ", questions_sum);
+    return groups
   }
 
-  find_answers(group) {
-    let questions = [];
+  handle (data) {
+    const questions = data.map(group => this.findAnswers(group))
+    const questionsSum = questions.reduce((acc, cur) => acc + cur.length, 0)
+    console.log('Sum of answers: ', questionsSum)
+  }
+
+  findAnswers (group) {
+    const questions = []
     group.forEach(person => {
-      const answers = person.split("");
+      const answers = person.split('')
       answers.forEach(answer => {
-        if (questions.indexOf(answer) == -1) {
-          questions.push(answer);
+        if (questions.indexOf(answer) === -1) {
+          questions.push(answer)
         }
-      });
-    });
+      })
+    })
 
-    return questions;
+    return questions
   }
 }
 
-exports.Task = Task;
+exports.Task = Task
