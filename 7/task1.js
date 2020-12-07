@@ -28,33 +28,23 @@ class Task extends Base {
   }
   
   handle(data) {
+    const matches = this.find_carriers(data, "shiny gold")
+                        .filter((val, ind, coll) => coll.indexOf(val) === ind); //unique filter 
+    console.log("Bag can fit into: " + matches.length + " bags");
+  }
+
+  find_carriers(data, carrier) {
     let matches = [];
-    matches = this.find_carriers(data, matches, ["shiny gold"]);
-    console.log("Shiny gold bag can fit into: " + matches.length + " bags");
-  }
-
-  find_carriers(data, matches, start_carriers) {
-    let current_matches = [];
-    start_carriers.forEach(carrier => {
-      current_matches = current_matches.concat(this.find_carrier(data, carrier));
+    data.forEach(bag => {
+      bag.content
+         .filter(sub => sub.color == carrier)
+         .forEach(_ => {
+            matches.push(bag);
+            matches = matches.concat(this.find_carriers(data, bag.color));
+         });
     });
 
-    if (current_matches.length > 0) {
-      current_matches.forEach(match => {
-        if (!matches.find(bag => bag.color == match.color)) {
-          matches.push(match);
-        }
-      })
-      return this.find_carriers(data, matches, current_matches.map(bag => bag.color));
-    }
-    
     return matches;
-  }
-
-  find_carrier(data, carrier) {
-    return data.filter(bag => {
-      return bag.content.filter(x => x.color == carrier).length >= 1;
-    });
   }
 }
 
