@@ -12,7 +12,7 @@ class Task extends Base {
         } else {
           let parts = bag.split(" ");
           return {
-            amount: parts[0],
+            amount: parseInt(parts[0]),
             color: parts[1] + " " + parts[2]
           };
         }
@@ -46,9 +46,9 @@ class Task extends Base {
         }
       })
       return this.find_carriers(data, matches, current_matches.map(bag => bag.color));
-    } else {
-      return matches;
     }
+    
+    return matches;
   }
 
   find_carrier(data, carrier) {
