@@ -14,52 +14,44 @@ class Task extends Base {
   }
 
   handle (data) {
-    const result = this.runner(data)
-    console.log('Accumulator is: ', result.accumulator)
+    console.log('Accumulator is: ', this.runner(data).accumulator)
   }
 
   runner (data) {
     let accumulator = 0
     const instructionsVisited = []
-    let index = 0
-    let running = true
-    let exitCode = 1
-    while (running) {
-      if (instructionsVisited.indexOf(index) === -1 && data.length > index) {
-        instructionsVisited.push(index)
-        const result = this.processLine(data[index], index)
-        accumulator += result.accumulator
-        index = result.index
-      } else {
-        if (data.length <= index) {
-          exitCode = 0
-        }
-
-        running = false
-      }
+    let line = 0
+    while (instructionsVisited.indexOf(line) === -1 && data.length > line) {
+      instructionsVisited.push(line)
+      const result = this.processLine(data[line], line)
+      accumulator += result.accumulator
+      line = result.next
     }
 
-    return { exitCode, accumulator }
+    return {
+      exitCode: data.length <= line ? 0 : 1,
+      accumulator: accumulator
+    }
   }
 
-  processLine (line, index) {
+  processLine (instruction, line) {
     let accumulator
-    switch (line.instruction) {
+    switch (instruction.instruction) {
       case 'nop':
-        index++
+        line++
         accumulator = 0
         break
       case 'acc':
-        index++
-        accumulator = line.argument
+        line++
+        accumulator = instruction.argument
         break
       case 'jmp':
-        index += line.argument
+        line += instruction.argument
         accumulator = 0
         break
     }
 
-    return { index, accumulator }
+    return { next: line, accumulator }
   }
 }
 
