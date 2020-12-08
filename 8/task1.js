@@ -7,34 +7,44 @@ class Task extends Base {
       .map(row => {
         const parts = [...row.matchAll(/^(\w+) ([\\+-].*)/g)][0]
         return {
-          instuction: parts[1],
+          instruction: parts[1],
           argument: parseInt(parts[2])
         }
       })
   }
 
   handle (data) {
+    const result = this.runner(data)
+    console.log('Accumulator is: ', result.accumulator)
+  }
+
+  runner (data) {
     let accumulator = 0
     const instructionsVisited = []
     let index = 0
     let running = true
+    let exitCode = 1
     while (running) {
-      if (instructionsVisited.indexOf(index) === -1) {
+      if (instructionsVisited.indexOf(index) === -1 && data.length > index) {
         instructionsVisited.push(index)
         const result = this.processLine(data[index], index)
         accumulator += result.accumulator
         index = result.index
       } else {
+        if (data.length <= index) {
+          exitCode = 0
+        }
+
         running = false
       }
     }
 
-    console.log('Accumulator is: ', accumulator)
+    return { exitCode, accumulator }
   }
 
   processLine (line, index) {
     let accumulator
-    switch (line.instuction) {
+    switch (line.instruction) {
       case 'nop':
         index++
         accumulator = 0
