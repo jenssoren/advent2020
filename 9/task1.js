@@ -1,6 +1,11 @@
 const { Base } = require('../lib/base.js')
 
 class Task extends Base {
+  constructor (filename) {
+    super(filename)
+    this.preambleSize = 25
+  }
+
   parseInput (data) {
     return data
       .split('\n')
@@ -8,11 +13,16 @@ class Task extends Base {
   }
 
   handle (data) {
-    const preambleSize = 25
-    data.slice(preambleSize).forEach((number, index) => {
+    console.log('Unmatched number: ', this.findInvalidNumber(data))
+  }
+
+  findInvalidNumber (data) {
+    let invalidNumber = null
+
+    data.slice(this.preambleSize).forEach((number, index) => {
       const previousNumbers = data.slice(
-        preambleSize + index - preambleSize,
-        preambleSize + index
+        this.preambleSize + index - this.preambleSize,
+        this.preambleSize + index
       )
 
       const match = previousNumbers.find(x => {
@@ -22,9 +32,12 @@ class Task extends Base {
       })
 
       if (!match) {
-        console.log('Unmatched number: ', number)
+        invalidNumber = number
+        return false
       }
     })
+
+    return invalidNumber
   }
 }
 
