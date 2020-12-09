@@ -3,7 +3,7 @@ const Task1 = require('./task1.js')
 class Task extends Task1.Task {
   handle (data) {
     const invalidNumber = this.findInvalidNumber(data)
-    const chain = this.findChains(data, invalidNumber).sort()
+    const chain = this.findCorrectChain(data, invalidNumber).sort()
     console.log(
       'First number:',
       data[0],
@@ -14,7 +14,7 @@ class Task extends Task1.Task {
     )
   }
 
-  findChains (data, invalidNumber) {
+  findCorrectChain (data, invalidNumber) {
     let correctChain = []
 
     data.forEach((number, index) => {
