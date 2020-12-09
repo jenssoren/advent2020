@@ -7,9 +7,7 @@ class Task extends Base {
   }
 
   parseInput (data) {
-    return data
-      .split('\n')
-      .map(number => parseInt(number))
+    return data.split('\n').map(number => parseInt(number))
   }
 
   handle (data) {
@@ -17,27 +15,18 @@ class Task extends Base {
   }
 
   findInvalidNumber (data) {
-    let invalidNumber = null
-
-    data.slice(this.preambleSize).forEach((number, index) => {
+    return data.slice(this.preambleSize).find((number, index) => {
       const previousNumbers = data.slice(
         this.preambleSize + index - this.preambleSize,
         this.preambleSize + index
       )
 
-      const match = previousNumbers.find(x => {
+      return !previousNumbers.find(x => {
         return previousNumbers.find(y => {
           return x !== y && x + y === number
         })
       })
-
-      if (!match) {
-        invalidNumber = number
-        return false
-      }
     })
-
-    return invalidNumber
   }
 }
 
