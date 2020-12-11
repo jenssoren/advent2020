@@ -1,6 +1,11 @@
 const { Base } = require('../lib/base.js')
 
 class Task extends Base {
+  constructor (filename) {
+    super(filename)
+    this.occupiedSeats = 4
+  }
+
   parseInput (data) {
     return data.split('\n').map(row => row.split(''))
   }
@@ -8,13 +13,15 @@ class Task extends Base {
   handle (data) {
     let prevPlan = this.simulate(data)
     let currentPlan = this.simulate(prevPlan)
+    let runs = 2
 
     while (this.planToString(currentPlan) !== this.planToString(prevPlan)) {
       prevPlan = currentPlan
       currentPlan = this.simulate(currentPlan)
+      runs++
     }
 
-    console.log('Occupied seats:', this.planToString(currentPlan).split('#').length - 1)
+    console.log('Occupied seats:', this.planToString(currentPlan).split('#').length - 1, '( took', runs, 'runs)')
   }
 
   simulate (data) {
@@ -31,7 +38,7 @@ class Task extends Base {
         }
         break
       case '#':
-        if (this.findOccupied(data, row, seat) >= 4) {
+        if (this.findOccupied(data, row, seat) >= this.occupiedSeats) {
           char = 'L'
         }
     }
